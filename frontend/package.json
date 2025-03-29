@@ -1,0 +1,55 @@
+{
+  "name": "trivia-app-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0",
+    "socket.io-client": "^4.7.2",
+    "axios": "^1.5.0",
+    "react-scripts": "5.0.1",
+    "tailwindcss": "^3.3.3",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+  },
+  "deploymentNotes": {
+    "deployment": "To deploy this frontend, follow these steps:",
+    "step1": "1. Create a .env file with REACT_APP_API_URL and REACT_APP_BACKEND_URL set to your backend URL",
+    "step2": "2. Run 'npm run build' to create a production build",
+    "step3": "3. Deploy the 'build' folder to a static hosting service like Vercel, Netlify, or GitHub Pages",
+    "step4": "4. Set environment variables in your hosting service dashboard if needed",
+    "localDevelopment": "For local development, run 'npm start' after setting up your .env file"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+} 

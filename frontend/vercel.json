@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "build": {
+    "env": {
+      "REACT_APP_API_URL": "https://trivia-app-mvp-backend-0f46e69fcc08.herokuapp.com/api",
+      "REACT_APP_BACKEND_URL": "https://trivia-app-mvp-backend-0f46e69fcc08.herokuapp.com"
+    }
+  }
+} 
