@@ -146,41 +146,20 @@ const Buzzer = () => {
           <p className="text-gray-600">Playing as: {contestant?.name}</p>
         </div>
         
-        {currentQuestion ? (
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-            <div className="flex justify-between mb-2">
-              <span className="font-semibold text-gray-700">
-                {currentQuestion.category}
-              </span>
-              <span className="font-bold text-blue-700">
-                ${currentQuestion.pointValue}
-              </span>
+        {currentQuestion && (
+          <div className="mb-6 bg-white p-4 rounded-lg shadow">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm text-gray-600">{currentQuestion.category}</span>
+              <span className="text-lg font-bold text-blue-600">{currentQuestion.point_value}</span>
             </div>
-            <p className="text-lg font-medium">{currentQuestion.questionText}</p>
-          </div>
-        ) : (
-          <div className="bg-gray-100 rounded-lg p-4 mb-6 text-center">
-            Waiting for the host to start a question...
-          </div>
-        )}
-        
-        {answerResult && (
-          <div className={`mb-6 p-4 rounded-lg border ${
-            answerResult.isCorrect 
-              ? 'bg-green-100 border-green-300' 
-              : 'bg-red-100 border-red-300'
-          }`}>
-            <p className="font-semibold mb-2">
-              {answerResult.isCorrect 
-                ? 'Correct answer!' 
-                : 'Incorrect answer'}
-            </p>
-            <p className="text-sm">
-              You said: <span className="italic">{answerResult.submittedAnswer}</span>
-            </p>
-            <p className="text-sm">
-              Correct answer: <span className="font-medium">{answerResult.correctAnswer}</span>
-            </p>
+            <p className="text-xl font-semibold mb-4">{currentQuestion.question}</p>
+            {answerResult && (
+              <div className={`p-4 rounded-lg ${
+                answerResult.correct ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              }`}>
+                <p className="font-semibold">Answer: {currentQuestion.answer}</p>
+              </div>
+            )}
           </div>
         )}
         

@@ -162,128 +162,40 @@ const HostDashboard = () => {
   const createSampleQuestions = async (roomCode) => {
     try {
       const questions = [
-        // US Professional Sports (7 questions)
         {
-          questionText: "Which MLB team has won the most World Series championships?",
-          answer: "New York Yankees",
-          pointValue: 100,
-          category: "US Professional Sports"
-        },
-        {
-          questionText: "Which NFL team is known for its 'Steel Curtain' defense?",
-          answer: "Pittsburgh Steelers",
-          pointValue: 150,
-          category: "US Professional Sports"
-        },
-        {
-          questionText: "Which NBA player is famously nicknamed 'Air' for his incredible dunks?",
-          answer: "Michael Jordan",
-          pointValue: 200,
-          category: "US Professional Sports"
-        },
-        {
-          questionText: "Which NFL quarterback led the New England Patriots to a historic comeback in Super Bowl LI?",
-          answer: "Tom Brady",
-          pointValue: 250,
-          category: "US Professional Sports"
-        },
-        {
-          questionText: "Which NBA team set a record with 73 wins in a single regular season?",
-          answer: "Golden State Warriors",
-          pointValue: 300,
-          category: "US Professional Sports"
-        },
-        {
-          questionText: "Which NFL head coach has the most Super Bowl victories?",
-          answer: "Bill Belichick",
-          pointValue: 350,
-          category: "US Professional Sports"
-        },
-        {
-          questionText: "Which MLB pitcher holds the record for the most career strikeouts?",
-          answer: "Nolan Ryan",
-          pointValue: 400,
-          category: "US Professional Sports"
-        },
-        // 2010's News (7 questions)
-        {
-          questionText: "Which social media platform, launched in 2010, popularized photo sharing and hashtags?",
-          answer: "Instagram",
-          pointValue: 100,
-          category: "2010's News"
-        },
-        {
-          questionText: "Which natural disaster struck Japan in 2011, leading to a nuclear crisis?",
-          answer: "Tōhoku earthquake and tsunami",
-          pointValue: 150,
-          category: "2010's News"
-        },
-        {
-          questionText: "Which major tech product, launched in 2010, redefined mobile computing?",
-          answer: "Apple iPad",
-          pointValue: 200,
-          category: "2010's News"
-        },
-        {
-          questionText: "Which US Supreme Court decision in 2015 legalized same-sex marriage nationwide?",
-          answer: "Obergefell v. Hodges",
-          pointValue: 250,
-          category: "2010's News"
-        },
-        {
-          questionText: "Which series of protests across the Middle East in 2010-2012 is known as a movement for democracy and reform?",
-          answer: "Arab Spring",
-          pointValue: 300,
-          category: "2010's News"
-        },
-        {
-          questionText: "Which scandal in the 2010s sparked the rise of the #MeToo movement in Hollywood?",
-          answer: "Harvey Weinstein scandal",
-          pointValue: 350,
-          category: "2010's News"
-        },
-        {
-          questionText: "Which controversial U.S. presidential primary in 2016 saw a political outsider win multiple state contests?",
-          answer: "Donald Trump",
-          pointValue: 400,
-          category: "2010's News"
-        },
-        // Geography (6 questions)
-        {
-          questionText: "What is the capital of France?",
+          round: "jeopardy",
+          category: "WORLD CAPITALS",
+          question: "What is the capital of France?",
           answer: "Paris",
-          pointValue: 100,
-          category: "Geography"
+          point_value: "$200"
         },
         {
-          questionText: "Which river is traditionally considered the longest in the world?",
-          answer: "Nile",
-          pointValue: 150,
-          category: "Geography"
+          round: "jeopardy",
+          category: "WORLD CAPITALS",
+          question: "Which country's capital is Canberra?",
+          answer: "Australia",
+          point_value: "$400"
         },
         {
-          questionText: "Which is the largest hot desert in the world?",
-          answer: "Sahara",
-          pointValue: 200,
-          category: "Geography"
+          round: "jeopardy",
+          category: "WORLD CAPITALS",
+          question: "What is the capital of Bhutan?",
+          answer: "Thimphu",
+          point_value: "$600"
         },
         {
-          questionText: "Which country has the longest coastline in the world?",
-          answer: "Canada",
-          pointValue: 300,
-          category: "Geography"
+          round: "jeopardy",
+          category: "WORLD CAPITALS",
+          question: "Which country's capital is Ouagadougou?",
+          answer: "Burkina Faso",
+          point_value: "$800"
         },
         {
-          questionText: "Which city is known as the 'City of a Hundred Spires'?",
-          answer: "Prague",
-          pointValue: 400,
-          category: "Geography"
-        },
-        {
-          questionText: "What is the highest mountain peak in North America?",
-          answer: "Denali",
-          pointValue: 450,
-          category: "Geography"
+          round: "jeopardy",
+          category: "WORLD CAPITALS",
+          question: "What is the capital of Equatorial Guinea?",
+          answer: "Malabo",
+          point_value: "$1000"
         }
       ];
       
@@ -319,12 +231,12 @@ const HostDashboard = () => {
     try {
       const data = JSON.parse(jsonText);
       
-      if (!data.questions || !Array.isArray(data.questions) || data.questions.length === 0) {
-        setError('Invalid question format. JSON must contain a "questions" array.');
+      if (!data.clues || !Array.isArray(data.clues) || data.clues.length === 0) {
+        setError('Invalid question format. JSON must contain a "clues" array.');
         return false;
       }
       
-      return await bulkImportQuestions(session.roomCode, data.questions);
+      return await bulkImportQuestions(session.roomCode, data.clues);
     } catch (err) {
       console.error('Error parsing question JSON:', err);
       setError('Failed to parse JSON. Make sure it is valid.');
@@ -620,12 +532,13 @@ const HostDashboard = () => {
                     className="w-full h-32 p-2 border border-gray-300 rounded"
                     placeholder={`Paste JSON in this format:
 {
-  "questions": [
+  "clues": [
     {
-      "questionText": "What is the capital of Spain?",
+      "round": "jeopardy",
+      "category": "CATEGORY_NAME",
+      "question": "What is the capital of Spain?",
       "answer": "Madrid",
-      "pointValue": 200,
-      "category": "Geography"
+      "point_value": "$200"
     },
     ...more questions...
   ]
@@ -711,7 +624,7 @@ const HostDashboard = () => {
                 {currentQuestion.category}
               </span>
               <span className="font-bold text-blue-700">
-                ${currentQuestion.pointValue}
+                {currentQuestion.pointValue}
               </span>
             </div>
             <p className="text-xl font-medium mb-4">{currentQuestion.questionText}</p>
